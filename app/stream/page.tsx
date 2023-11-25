@@ -73,10 +73,10 @@ export default function Page() {
         <div className="relative">
           <video ref={streamRef} autoPlay muted />
           <div
-            className="absolute top-5 right-5 cursor-pointer"
+            className="absolute top-3 right-3 cursor-pointer"
             onClick={() => setOpenShare(true)}
           >
-            <ShareOutlined fontSize="large" />
+            <ShareOutlined fontSize="medium" sx={{ color: "#fff" }} />
           </div>
         </div>
         <Snackbar

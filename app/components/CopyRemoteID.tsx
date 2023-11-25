@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { ContentCopy } from "@mui/icons-material";
-import { IconButton, ButtonGroup, Button } from "@mui/joy";
 import Snackbar from "@mui/material/Snackbar";
 
-export default function CopyConnectionID({ remoteID }: any) {
+export default function CopyRemoteID({ remoteID }: any) {
   const [open, setOpen] = useState(false);
   const copyClick = () => {
     setOpen(true);
@@ -12,13 +11,13 @@ export default function CopyConnectionID({ remoteID }: any) {
 
   return (
     <>
-      <ButtonGroup>
-        <Button disabled>Remote ID</Button>
-        <Button disabled>{remoteID}</Button>
-        <IconButton onClick={copyClick}>
-          <ContentCopy />
-        </IconButton>
-      </ButtonGroup>
+      <div
+        className="w-12 h-12 bg-gray-200 rounded-full flex justify-center items-center cursor-pointer"
+        onClick={copyClick}
+      >
+        <ContentCopy />
+      </div>
+
       <Snackbar
         open={open}
         onClose={() => setOpen(false)}

@@ -29,15 +29,14 @@ export default function ConnectButton() {
   };
   return (
     <>
-      <Button
-        fullWidth
-        variant="outlined"
-        color="neutral"
-        endDecorator={<Add />}
+      <div
+        className="w-16 h-16 bg-blue-600 rounded-2xl flex justify-center items-center cursor-pointer"
         onClick={() => setOpenModal(true)}
       >
-        Connect
-      </Button>
+        <div className="w-8 h-8  bg-white rounded-lg flex justify-center items-center">
+          <Add color="primary" />
+        </div>
+      </div>
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <ModalDialog>
           <DialogTitle>Please enter a remote ID</DialogTitle>

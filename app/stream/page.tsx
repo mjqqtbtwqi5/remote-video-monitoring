@@ -2,12 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import CopyConnectionID from "../components/CopyConnectionID";
+import CopyRemoteID from "../components/CopyRemoteID";
+import Snackbar from "@mui/joy/Snackbar";
+import { ShareOutlined } from "@mui/icons-material";
+import { Card, CardContent, Typography } from "@mui/joy";
+import CopyRemoteURL from "../components/CopyRemoteURL";
+import ShareWhatsApp from "../components/ShareWhatsApp";
 
 export default function Page() {
   const streamRef = useRef<HTMLVideoElement>(null);
   const [remoteID, setRemoteID] = useState<string>("");
-  const [live, setLive] = useState<Boolean>(false);
+  const [openShare, setOpenShare] = useState(false);
   const [stream, setStream] = useState<MediaStream>();
 
   useEffect(() => {
@@ -21,10 +26,6 @@ export default function Page() {
     (async function createConnection() {
       try {
         const peer = new (await import("peerjs")).default(remoteID);
-
-        peer.on("open", () => {
-          createRemote();
-        });
 
         peer.on("call", (call) => {
           call.answer(stream);
@@ -46,24 +47,11 @@ export default function Page() {
       });
   };
 
-  const createRemote = () => {
-    axios
-      .post(`https://fair-gray-rhinoceros-vest.cyclic.app/api/createRemote`, {
-        remoteID: remoteID,
-      })
-      .then((resp) => {
-        console.log(`${resp.data.created ? "Created" : "Fail connection"}`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   const goLive = () => {
     navigator.mediaDevices
       .getUserMedia({
-        // video: { width: 1280, height: 720 },
-        video: true,
+        video: { width: 1280, height: 720 },
+        // video: true,
         audio: true,
       })
       .then((stream) => {
@@ -79,18 +67,57 @@ export default function Page() {
   };
 
   return (
-    <>
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="max-w-lg">
-          <video
-            onLoadedMetadata={() => setLive(true)}
-            ref={streamRef}
-            autoPlay
-            muted
-          />
-          <div>{live && <CopyConnectionID remoteID={remoteID} />}</div>
+    <main className="bg-black">
+      {/* <div className="h-screen flex items-center justify-center"> */}
+      <div className="h-screen flex items-center justify-center">
+        <div className="relative">
+          <video ref={streamRef} autoPlay muted />
+          <div
+            className="absolute top-5 right-5 cursor-pointer"
+            onClick={() => setOpenShare(true)}
+          >
+            <ShareOutlined fontSize="large" />
+          </div>
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={openShare}
+          onClose={() => setOpenShare(false)}
+        >
+          <Card
+            sx={{
+              width: "100%",
+              "--Card-padding": "0",
+            }}
+            variant="plain"
+          >
+            <CardContent>
+              <Typography level="title-lg">SHARE</Typography>
+              <div className="grid grid-cols-3 mt-3">
+                <div className="justify-self-center">
+                  <CopyRemoteID remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center">
+                  <CopyRemoteURL remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center">
+                  <ShareWhatsApp remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center text-xs pt-0.5">
+                  Remote ID
+                </div>
+                <div className="justify-self-center text-xs pt-0.5">URL</div>
+                <div className="justify-self-center text-xs pt-0.5">
+                  WhatsApp
+                </div>
+              </div>
+              {/* <div className="mt-3">
+                <CopyRemoteID remoteID={remoteID} />
+              </div> */}
+            </CardContent>
+          </Card>
+        </Snackbar>
       </div>
-    </>
+    </main>
   );
 }

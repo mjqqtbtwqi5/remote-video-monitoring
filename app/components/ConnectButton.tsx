@@ -28,7 +28,8 @@ export default function ConnectButton() {
   const getRemoteID = () => {
     if (remoteID) {
       axios
-        .post(`https://${hostname}:3001/getRemote`, {
+        // .post(`https://${hostname}:3001/getRemote`, {
+        .post(`https://pleasant-robe-tick.cyclic.app/api/getRemote`, {
           remoteID: remoteID,
         })
         .then((resp) => {

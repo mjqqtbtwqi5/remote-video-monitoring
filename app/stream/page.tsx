@@ -43,7 +43,8 @@ export default function Page() {
 
   const createRemote = () => {
     axios
-      .post(`https://${hostname}:3001/createRemote`, {
+      // .post(`https://${hostname}:3001/createRemote`, {
+      .post(`https://pleasant-robe-tick.cyclic.app/api/createRemote`, {
         remoteID: remoteID,
       })
       .then((resp) => {
@@ -65,7 +66,9 @@ export default function Page() {
         if (streamRef.current) {
           setStream(stream);
           streamRef.current.srcObject = stream;
-          const socket = io(`https://${hostname}:3001`);
+          // const socket = io(`https://${hostname}:3001`);
+          const socket = io(`https://pleasant-robe-tick.cyclic.app:3000`);
+
           socket.on("connect", () => {
             setRemoteID(socket.id);
           });

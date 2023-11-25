@@ -5,15 +5,9 @@ import Button from "@mui/joy/Button";
 import { Box, DialogTitle, Input, Modal, ModalDialog } from "@mui/joy";
 import { Add } from "@mui/icons-material";
 import Snackbar from "@mui/material/Snackbar";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export default function ConnectButton() {
-  const hostname =
-    typeof window !== "undefined" && window.location.hostname
-      ? window.location.hostname
-      : "";
-
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [remoteID, setRemoteID] = useState<string>("");
@@ -27,32 +21,23 @@ export default function ConnectButton() {
 
   const getRemoteID = () => {
     if (remoteID) {
-      axios
-        // .post(`https://${hostname}:3001/getRemote`, {
-        .post(
-          `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev:8080/api/getRemote`,
-          {
-            remoteID: remoteID,
-          }
-        )
-        .then((resp) => {
-          console.log(`${resp.data.exist ? "Exist" : "Not exist"}`);
-          if (resp.data.exist) {
-            // redirect(`/monitor?remoteID=${remoteID}`);
-            router.push(`/monitor?remoteID=${remoteID}`);
-            // router.push("/monitor");
-            // router.push({
-            //   pathname: "/monitor",
-            //   // query: { pid: post.id },
-            // });
-          } else {
-            setSnackbarMsg(`Remote ID ${remoteID} not exist`);
-            setOpenSnackbar(true);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      router.push(`/monitor?remoteID=${remoteID}`);
+      // axios
+      //   .post(`https://fair-gray-rhinoceros-vest.cyclic.app/api/getRemote`, {
+      //     remoteID: remoteID,
+      //   })
+      //   .then((resp) => {
+      //     console.log(`${resp.data.exist ? "Exist" : "Not exist"}`);
+      //     if (resp.data.exist) {
+      //       router.push(`/monitor?remoteID=${remoteID}`);
+      //     } else {
+      //       setSnackbarMsg(`Remote ID ${remoteID} not exist`);
+      //       setOpenSnackbar(true);
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      //   });
     } else {
       setSnackbarMsg("Please enter a remote ID.");
       setOpenSnackbar(true);

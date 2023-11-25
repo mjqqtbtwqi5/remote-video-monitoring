@@ -37,7 +37,6 @@ export default function Page() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // return () => {
     const remoteID = searchParams.get("remoteID") || "";
     if (!remoteID) {
       setOpenSnackbar(true);
@@ -54,6 +53,7 @@ export default function Page() {
             const call = peer.call(remoteID, mediaStream);
             call.on("stream", (stream) => {
               if (streamRef.current) {
+                console.log("streaming...");
                 streamRef.current.srcObject = stream;
               }
             });
@@ -63,7 +63,6 @@ export default function Page() {
         }
       })();
     }
-    // };
   }, []);
 
   return (
@@ -74,12 +73,12 @@ export default function Page() {
         </div>
       </div>
 
-      {/* <Snackbar
+      <Snackbar
         open={openSnackbar}
         onClose={() => setOpenSnackbar(false)}
         autoHideDuration={5000}
         message="Server ERROR"
-      /> */}
+      />
     </>
   );
 }

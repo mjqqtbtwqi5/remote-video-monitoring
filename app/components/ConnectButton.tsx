@@ -22,22 +22,6 @@ export default function ConnectButton() {
   const getRemoteID = () => {
     if (remoteID) {
       router.push(`/monitor?remoteID=${remoteID}`);
-      // axios
-      //   .post(`https://fair-gray-rhinoceros-vest.cyclic.app/api/getRemote`, {
-      //     remoteID: remoteID,
-      //   })
-      //   .then((resp) => {
-      //     console.log(`${resp.data.exist ? "Exist" : "Not exist"}`);
-      //     if (resp.data.exist) {
-      //       router.push(`/monitor?remoteID=${remoteID}`);
-      //     } else {
-      //       setSnackbarMsg(`Remote ID ${remoteID} not exist`);
-      //       setOpenSnackbar(true);
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.error(err);
-      //   });
     } else {
       setSnackbarMsg("Please enter a remote ID.");
       setOpenSnackbar(true);

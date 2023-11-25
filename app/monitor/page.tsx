@@ -53,7 +53,6 @@ export default function Page() {
             const call = peer.call(remoteID, mediaStream);
             call.on("stream", (stream) => {
               if (streamRef.current) {
-                console.log("streaming...");
                 streamRef.current.srcObject = stream;
               }
             });

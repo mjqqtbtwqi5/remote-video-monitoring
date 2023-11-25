@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import io from "socket.io-client";
 import axios from "axios";
 import CopyConnectionID from "../components/CopyConnectionID";
 
@@ -22,6 +21,7 @@ export default function Page() {
     (async function createConnection() {
       try {
         const peer = new (await import("peerjs")).default(remoteID);
+
         peer.on("open", () => {
           createRemote();
         });
@@ -53,19 +53,6 @@ export default function Page() {
       })
       .then((resp) => {
         console.log(`${resp.data.created ? "Created" : "Fail connection"}`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const deleteRemote = () => {
-    axios
-      .post(`https://fair-gray-rhinoceros-vest.cyclic.app/api/deleteRemote`, {
-        remoteID: remoteID,
-      })
-      .then((resp) => {
-        console.log(`${resp.data.deleted ? "Deleted" : "Fail connection"}`);
       })
       .catch((err) => {
         console.error(err);

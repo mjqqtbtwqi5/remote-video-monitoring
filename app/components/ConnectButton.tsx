@@ -30,7 +30,7 @@ export default function ConnectButton() {
       axios
         // .post(`https://${hostname}:3001/getRemote`, {
         .post(
-          `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev/api/getRemote`,
+          `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev:8080/api/getRemote`,
           {
             remoteID: remoteID,
           }

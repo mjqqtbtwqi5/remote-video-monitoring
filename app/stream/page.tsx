@@ -45,7 +45,7 @@ export default function Page() {
     axios
       // .post(`https://${hostname}:3001/createRemote`, {
       .post(
-        `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev/api/createRemote`,
+        `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev:8080/api/createRemote`,
         {
           remoteID: remoteID,
         }
@@ -71,7 +71,7 @@ export default function Page() {
           streamRef.current.srcObject = stream;
           // const socket = io(`https://${hostname}:3001`);
           const socket = io(
-            `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev`,
+            `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev:443`,
             {
               withCredentials: true,
             }

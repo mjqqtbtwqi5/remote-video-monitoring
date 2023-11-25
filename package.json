@@ -3,13 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently --kill-others \"npm:dev:server\" \"npm:dev:client\"",
-    "dev:client": "next dev",
-    "dev:server": "nodemon server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "concurrently --kill-others \"npm:start:server\" \"npm:start:client\"",
-    "start:client": "next start",
-    "start:server": "node server.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

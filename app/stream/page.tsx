@@ -43,7 +43,7 @@ export default function Page() {
 
   const createRemote = () => {
     axios
-      .post(`http://${hostname}:3001/createRemote`, {
+      .post(`https://${hostname}:3001/createRemote`, {
         remoteID: remoteID,
       })
       .then((resp) => {
@@ -65,7 +65,7 @@ export default function Page() {
         if (streamRef.current) {
           setStream(stream);
           streamRef.current.srcObject = stream;
-          const socket = io(`http://${hostname}:3001`);
+          const socket = io(`https://${hostname}:3001`);
           socket.on("connect", () => {
             setRemoteID(socket.id);
           });

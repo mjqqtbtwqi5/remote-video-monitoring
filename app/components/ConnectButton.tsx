@@ -29,9 +29,12 @@ export default function ConnectButton() {
     if (remoteID) {
       axios
         // .post(`https://${hostname}:3001/getRemote`, {
-        .post(`https://pleasant-robe-tick.cyclic.app/api/getRemote`, {
-          remoteID: remoteID,
-        })
+        .post(
+          `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev/api/getRemote`,
+          {
+            remoteID: remoteID,
+          }
+        )
         .then((resp) => {
           console.log(`${resp.data.exist ? "Exist" : "Not exist"}`);
           if (resp.data.exist) {

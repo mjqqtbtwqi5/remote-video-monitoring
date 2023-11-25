@@ -44,9 +44,12 @@ export default function Page() {
   const createRemote = () => {
     axios
       // .post(`https://${hostname}:3001/createRemote`, {
-      .post(`https://pleasant-robe-tick.cyclic.app/api/createRemote`, {
-        remoteID: remoteID,
-      })
+      .post(
+        `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev/api/createRemote`,
+        {
+          remoteID: remoteID,
+        }
+      )
       .then((resp) => {
         console.log(`${resp.data.created ? "Created" : "Fail connection"}`);
       })
@@ -67,7 +70,9 @@ export default function Page() {
           setStream(stream);
           streamRef.current.srcObject = stream;
           // const socket = io(`https://${hostname}:3001`);
-          const socket = io(`https://pleasant-robe-tick.cyclic.app:3000`);
+          const socket = io(
+            `https://8080-cs-4579d115-4c8d-4e33-a5f6-6d58ed6c55cf.cs-asia-east1-vger.cloudshell.dev`
+          );
 
           socket.on("connect", () => {
             setRemoteID(socket.id);

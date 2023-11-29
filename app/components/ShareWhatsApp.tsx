@@ -9,7 +9,9 @@ library.add(faWhatsapp);
 export default function ShareWhatsApp({ remoteID }: any) {
   const URL = `https://${window.location.hostname}/monitor?remoteID=${remoteID}`;
   const shareClick = () => {
-    window.open(`https://api.whatsapp.com:/send?text=${URL}`);
+    window.open(
+      `https://api.whatsapp.com:/send?text=Connect to the remote station by the below URL:%0a${URL}`
+    );
   };
 
   return (

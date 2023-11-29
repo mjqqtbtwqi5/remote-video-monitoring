@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Remote Video Monitoring",
-  description: "Remote video monitoring",
+  description: "EIE4428 Mini project: Remote video monitoring",
 };
 
 export default function RootLayout({

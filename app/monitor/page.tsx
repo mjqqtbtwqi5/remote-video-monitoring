@@ -65,10 +65,10 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="bg-black">
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        <div className="max-w-lg">
-          <video ref={streamRef} autoPlay controls />
+    <main>
+      <div className="h-screen flex items-center justify-center">
+        <div>
+          <video width={1280} height={720} ref={streamRef} autoPlay controls />
         </div>
       </div>
 

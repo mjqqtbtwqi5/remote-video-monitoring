@@ -144,10 +144,13 @@ export default function Page() {
               // width={100%}
               // height={720}
               ref={streamRef}
+              webkit-playsinline
+              // playsinline
               autoPlay
               controls
               muted
             />
+
             {/* <div
               className="absolute top-3 right-3 cursor-pointer"
               onClick={() => setOpenShare(true)}

@@ -66,12 +66,12 @@ export default function Page() {
   }, [remoteID]);
 
   const shareCameraContent = () => {
-    const video = isMobile ? true : { width: 1280, height: 720 };
-    // const video = { width: 1280, height: 720 };
+    // const video = isMobile ? true : { width: 1280, height: 720 };
+    const video = { width: 1280, height: 720 };
     navigator.mediaDevices
       .getUserMedia({
         video: video,
-        // audio: true,
+        audio: true,
       })
       .then((stream) => {
         if (streamRef.current) {
@@ -145,10 +145,17 @@ export default function Page() {
 
       <div className="h-screen flex items-center justify-center">
         <div className="relative">
-          <video width={1280} height={720} ref={streamRef} autoPlay controls />
+          <video
+            width={1280}
+            height={720}
+            ref={streamRef}
+            autoPlay
+            muted
+            controls
+          />
           {isMobile ? (
             <div
-              className="absolute top-4 right-4 cursor-pointer bg-black bg-opacity-10 p-1"
+              className="absolute top-6 right-6 cursor-pointer bg-black bg-opacity-10 p-1"
               onClick={() => setOpenShare(true)}
             >
               {remoteID && (
@@ -157,7 +164,7 @@ export default function Page() {
             </div>
           ) : (
             <div
-              className="absolute top-8 right-8 cursor-pointer bg-black bg-opacity-10 p-1.5"
+              className="absolute top-9 right-9 cursor-pointer bg-black bg-opacity-10 p-1.5"
               onClick={() => setOpenShare(true)}
             >
               {remoteID && (
@@ -179,7 +186,7 @@ export default function Page() {
             variant="plain"
           >
             <CardContent>
-              <Typography level="title-lg">SHARE</Typography>
+              <Typography level="title-lg">Share</Typography>
               <div className="grid grid-cols-3 mt-3">
                 <div className="justify-self-center">
                   <CopyRemoteID remoteID={remoteID} />

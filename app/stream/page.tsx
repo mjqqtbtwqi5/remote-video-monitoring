@@ -61,9 +61,10 @@ export default function Page() {
   }, [remoteID]);
 
   const shareCameraContent = () => {
+    const video = isMobile ? true : { width: 1280, height: 720 };
     navigator.mediaDevices
       .getUserMedia({
-        video: { width: 1280, height: 720 },
+        video: video,
         // audio: true,
       })
       .then((stream) => {
@@ -140,16 +141,7 @@ export default function Page() {
         <div className="flex items-center justify-center">
           {/* <div className="box-border w-full h-full overflow-hidden"> */}
           <div>
-            <video
-              // width={100%}
-              // height={720}
-              ref={streamRef}
-              webkit-playsinline
-              playsInline
-              autoPlay
-              controls
-              muted
-            />
+            <video ref={streamRef} autoPlay controls muted />
 
             {/* <div
               className="absolute top-3 right-3 cursor-pointer"

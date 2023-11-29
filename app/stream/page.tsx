@@ -28,35 +28,9 @@ export default function Page() {
   const [openModal, setOpenModal] = useState<boolean>(true);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const [videoDevices, setVideoDevices] = useState<{}[]>([]);
-
   useEffect(() => {
     setIsMobile(isMobileDevice());
-    getMediaDevices();
   }, []);
-
-  const getMediaDevices = async () => {
-    console.log("getMediaDevices");
-    if (isMobile) {
-      console.log("is mobile");
-      navigator.mediaDevices
-        .getUserMedia({ audio: true, video: true })
-        .then(async () => {
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          const videoDevices = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
-          setVideoDevices(videoDevices);
-        });
-    } else {
-      console.log("not mobile");
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      setVideoDevices(videoDevices);
-    }
-  };
 
   const getRemoteID = async () => {
     await axios
@@ -86,10 +60,10 @@ export default function Page() {
     })();
   }, [remoteID]);
 
-  const shareCameraContent = (deviceId: string) => {
+  const shareCameraContent = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: { width: 1280, height: 720, deviceId: { exact: deviceId } },
+        video: { width: 1280, height: 720 },
         audio: true,
       })
       .then((stream) => {
@@ -135,21 +109,16 @@ export default function Page() {
               flexDirection: { xs: "column" },
             }}
           >
-            {videoDevices.map((videoDevice: any) => {
-              return (
-                <Button
-                  key={videoDevice.deviceId}
-                  variant="outlined"
-                  color="neutral"
-                  onClick={() => {
-                    shareCameraContent(videoDevice.deviceId);
-                    setOpenModal(false);
-                  }}
-                >
-                  {videoDevice.label}
-                </Button>
-              );
-            })}
+            <Button
+              variant="outlined"
+              color="neutral"
+              onClick={() => {
+                shareCameraContent();
+                setOpenModal(false);
+              }}
+            >
+              Camera
+            </Button>
 
             {!isMobile && (
               <Button
@@ -169,22 +138,23 @@ export default function Page() {
 
       {isMobile ? (
         <div className="flex items-center justify-center">
-          <div className="relative">
+          <div className="box-border w-full h-full overflow-hidden">
             <video
-              width={1280}
-              height={720}
+              className="h-full"
+              // width={100%}
+              // height={720}
               ref={streamRef}
               autoPlay
               controls
             />
-            <div
+            {/* <div
               className="absolute top-3 right-3 cursor-pointer"
               onClick={() => setOpenShare(true)}
             >
               {remoteID && (
                 <ShareOutlined fontSize="medium" sx={{ color: "#fff" }} />
               )}
-            </div>
+            </div> */}
           </div>
 
           <Snackbar

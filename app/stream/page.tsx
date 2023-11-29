@@ -64,7 +64,7 @@ export default function Page() {
     navigator.mediaDevices
       .getUserMedia({
         video: { width: 1280, height: 720 },
-        audio: true,
+        // audio: true,
       })
       .then((stream) => {
         if (streamRef.current) {
@@ -146,6 +146,7 @@ export default function Page() {
               ref={streamRef}
               autoPlay
               controls
+              muted
             />
             {/* <div
               className="absolute top-3 right-3 cursor-pointer"

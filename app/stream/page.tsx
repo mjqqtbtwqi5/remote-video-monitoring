@@ -26,10 +26,12 @@ export default function Page() {
   const [openShare, setOpenShare] = useState(false);
   const [stream, setStream] = useState<MediaStream>();
   const [openModal, setOpenModal] = useState<boolean>(true);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const [videoDevices, setVideoDevices] = useState<{}[]>([]);
 
   useEffect(() => {
+    setIsMobile(isMobileDevice());
     getMediaDevices();
   }, []);
   const getMediaDevices = async () => {
@@ -38,31 +40,6 @@ export default function Page() {
       (device) => device.kind === "videoinput"
     );
     setVideoDevices(videoDevices);
-  };
-
-  const MediaDevices = () => {
-    console.log("MediaDevices");
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      console.log(videoDevices);
-      videoDevices.map((videoDevice) => {
-        return (
-          <Button
-            key={videoDevice.deviceId}
-            variant="outlined"
-            color="neutral"
-            onClick={() => {
-              shareCameraContent(videoDevice.deviceId);
-              setOpenModal(false);
-            }}
-          >
-            ${videoDevice.label}
-          </Button>
-        );
-      });
-    });
   };
 
   const getRemoteID = async () => {
@@ -171,7 +148,7 @@ export default function Page() {
         </ModalDialog>
       </Modal>
 
-      {isMobileDevice() ? (
+      {isMobile ? (
         <div className="flex items-center justify-center">
           <div className="relative">
             <video

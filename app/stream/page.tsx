@@ -34,7 +34,11 @@ export default function Page() {
     setIsMobile(isMobileDevice());
     getMediaDevices();
   }, []);
+
   const getMediaDevices = async () => {
+    if (isMobile) {
+      await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    }
     const devices = await navigator.mediaDevices.enumerateDevices();
     const videoDevices = devices.filter(
       (device) => device.kind === "videoinput"
@@ -134,16 +138,19 @@ export default function Page() {
                 </Button>
               );
             })}
-            <Button
-              variant="outlined"
-              color="neutral"
-              onClick={() => {
-                shareScreenContent();
-                setOpenModal(false);
-              }}
-            >
-              Screen
-            </Button>
+
+            {!isMobile && (
+              <Button
+                variant="outlined"
+                color="neutral"
+                onClick={() => {
+                  shareScreenContent();
+                  setOpenModal(false);
+                }}
+              >
+                Screen
+              </Button>
+            )}
           </Box>
         </ModalDialog>
       </Modal>

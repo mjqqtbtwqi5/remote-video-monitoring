@@ -61,7 +61,8 @@ export default function Page() {
   }, [remoteID]);
 
   const shareCameraContent = () => {
-    const video = isMobile ? true : { width: 1280, height: 720 };
+    // const video = isMobile ? true : { width: 1280, height: 720 };
+    const video = { width: 1280, height: 720 };
     navigator.mediaDevices
       .getUserMedia({
         video: video,
@@ -137,68 +138,19 @@ export default function Page() {
         </ModalDialog>
       </Modal>
 
-      {isMobile ? (
-        <div className="flex items-center justify-center">
-          {/* <div className="box-border w-full h-full overflow-hidden"> */}
-          <div>
-            <video ref={streamRef} autoPlay controls muted />
-
-            {/* <div
-              className="absolute top-3 right-3 cursor-pointer"
+      <div className="h-screen flex items-center justify-center">
+        <div className="relative">
+          <video width={1280} height={720} ref={streamRef} autoPlay controls />
+          {isMobile ? (
+            <div
+              className="absolute top-4 right-4 cursor-pointer bg-black bg-opacity-10 p-1"
               onClick={() => setOpenShare(true)}
             >
               {remoteID && (
-                <ShareOutlined fontSize="medium" sx={{ color: "#fff" }} />
+                <ShareOutlined fontSize="small" sx={{ color: "#fff" }} />
               )}
-            </div> */}
-          </div>
-
-          <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            open={openShare}
-            onClose={() => setOpenShare(false)}
-          >
-            <Card
-              sx={{
-                width: "100%",
-                "--Card-padding": "0",
-              }}
-              variant="plain"
-            >
-              <CardContent>
-                <Typography level="title-lg">SHARE</Typography>
-                <div className="grid grid-cols-3 mt-3">
-                  <div className="justify-self-center">
-                    <CopyRemoteID remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center">
-                    <CopyRemoteURL remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center">
-                    <ShareWhatsApp remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center text-xs pt-0.5">
-                    Remote ID
-                  </div>
-                  <div className="justify-self-center text-xs pt-0.5">URL</div>
-                  <div className="justify-self-center text-xs pt-0.5">
-                    WhatsApp
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Snackbar>
-        </div>
-      ) : (
-        <div className="h-screen flex items-center justify-center">
-          <div className="relative">
-            <video
-              width={1280}
-              height={720}
-              ref={streamRef}
-              autoPlay
-              controls
-            />
+            </div>
+          ) : (
             <div
               className="absolute top-8 right-8 cursor-pointer bg-black bg-opacity-10 p-1.5"
               onClick={() => setOpenShare(true)}
@@ -207,44 +159,44 @@ export default function Page() {
                 <ShareOutlined fontSize="large" sx={{ color: "#fff" }} />
               )}
             </div>
-          </div>
-          <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            open={openShare}
-            onClose={() => setOpenShare(false)}
-          >
-            <Card
-              sx={{
-                width: "100%",
-                "--Card-padding": "0",
-              }}
-              variant="plain"
-            >
-              <CardContent>
-                <Typography level="title-lg">SHARE</Typography>
-                <div className="grid grid-cols-3 mt-3">
-                  <div className="justify-self-center">
-                    <CopyRemoteID remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center">
-                    <CopyRemoteURL remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center">
-                    <ShareWhatsApp remoteID={remoteID} />
-                  </div>
-                  <div className="justify-self-center text-xs pt-0.5">
-                    Remote ID
-                  </div>
-                  <div className="justify-self-center text-xs pt-0.5">URL</div>
-                  <div className="justify-self-center text-xs pt-0.5">
-                    WhatsApp
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Snackbar>
+          )}
         </div>
-      )}
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={openShare}
+          onClose={() => setOpenShare(false)}
+        >
+          <Card
+            sx={{
+              width: "100%",
+              "--Card-padding": "0",
+            }}
+            variant="plain"
+          >
+            <CardContent>
+              <Typography level="title-lg">SHARE</Typography>
+              <div className="grid grid-cols-3 mt-3">
+                <div className="justify-self-center">
+                  <CopyRemoteID remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center">
+                  <CopyRemoteURL remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center">
+                  <ShareWhatsApp remoteID={remoteID} />
+                </div>
+                <div className="justify-self-center text-xs pt-0.5">
+                  Remote ID
+                </div>
+                <div className="justify-self-center text-xs pt-0.5">URL</div>
+                <div className="justify-self-center text-xs pt-0.5">
+                  WhatsApp
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Snackbar>
+      </div>
     </main>
   );
 }

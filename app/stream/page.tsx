@@ -18,7 +18,10 @@ import {
 import CopyRemoteURL from "../components/CopyRemoteURL";
 import ShareWhatsApp from "../components/ShareWhatsApp";
 
-import { isMobileDevice } from "../util/checkMobileBrowser";
+import {
+  isMobileDevice,
+  isMobileOrTabletDevice,
+} from "../util/checkDeviceBrowser";
 
 export default function Page() {
   const streamRef = useRef<HTMLVideoElement>(null);
@@ -27,9 +30,11 @@ export default function Page() {
   const [stream, setStream] = useState<MediaStream>();
   const [openModal, setOpenModal] = useState<boolean>(true);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean>(false);
 
   useEffect(() => {
     setIsMobile(isMobileDevice());
+    setIsMobileOrTablet(isMobileOrTabletDevice());
   }, []);
 
   const getRemoteID = async () => {
@@ -61,8 +66,8 @@ export default function Page() {
   }, [remoteID]);
 
   const shareCameraContent = () => {
-    // const video = isMobile ? true : { width: 1280, height: 720 };
-    const video = { width: 1280, height: 720 };
+    const video = isMobile ? true : { width: 1280, height: 720 };
+    // const video = { width: 1280, height: 720 };
     navigator.mediaDevices
       .getUserMedia({
         video: video,
@@ -122,7 +127,7 @@ export default function Page() {
               Camera
             </Button>
 
-            {!isMobile && (
+            {!isMobileOrTablet && (
               <Button
                 variant="outlined"
                 color="neutral"

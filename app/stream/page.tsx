@@ -138,14 +138,14 @@ export default function Page() {
 
       {isMobile ? (
         <div className="flex items-center justify-center">
-          <div className="box-border w-full h-full overflow-hidden">
+          {/* <div className="box-border w-full h-full overflow-hidden"> */}
+          <div>
             <video
-              className="h-full"
               // width={100%}
               // height={720}
               ref={streamRef}
               webkit-playsinline
-              // playsinline
+              playsInline
               autoPlay
               controls
               muted

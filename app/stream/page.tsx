@@ -36,14 +36,26 @@ export default function Page() {
   }, []);
 
   const getMediaDevices = async () => {
+    console.log("getMediaDevices");
     if (isMobile) {
-      await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      console.log("is mobile");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true, video: true })
+        .then(async () => {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const videoDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+          setVideoDevices(videoDevices);
+        });
+    } else {
+      console.log("not mobile");
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      setVideoDevices(videoDevices);
     }
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const videoDevices = devices.filter(
-      (device) => device.kind === "videoinput"
-    );
-    setVideoDevices(videoDevices);
   };
 
   const getRemoteID = async () => {

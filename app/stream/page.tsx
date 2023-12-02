@@ -66,7 +66,6 @@ export default function Page() {
   }, [remoteID]);
 
   const shareCameraContent = () => {
-    // const video = isMobile ? true : { width: 1280, height: 720 };
     const video = { width: 1280, height: 720 };
     navigator.mediaDevices
       .getUserMedia({

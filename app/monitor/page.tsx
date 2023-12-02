@@ -4,13 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Snackbar from "@mui/joy/Snackbar";
 import { isMobileDevice } from "../util/checkDeviceBrowser";
+import { PhotoCameraOutlined, TuneOutlined } from "@mui/icons-material";
 import {
-  PhotoCameraBackOutlined,
-  PhotoCameraOutlined,
-  TuneOutlined,
-} from "@mui/icons-material";
-import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -25,22 +20,15 @@ import ShareWhatsApp from "../components/ShareWhatsApp";
 const createEmptyAudioTrack = () => {
   const ctx = new AudioContext();
   const oscillator = ctx.createOscillator();
-  //   const dst = oscillator.connect(ctx.createMediaStreamDestination());
   const dst = ctx.createMediaStreamDestination();
   oscillator.start();
   const track = dst.stream.getAudioTracks()[0];
   return Object.assign(track, { enabled: false });
 };
 
-// const createEmptyVideoTrack = ({ width, height }: any) => {
 const createEmptyVideoTrack = () => {
-  // const canvas = Object.assign(document.createElement("canvas"), {
-  //   width,
-  //   height,
-  // });
   const canvas = Object.assign(document.createElement("canvas"));
 
-  // canvas.getContext("2d")?.fillRect(0, 0, width, height);
   canvas.getContext("2d")?.fillRect(0, 0, 0, 0);
 
   const stream = canvas.captureStream();
@@ -101,7 +89,6 @@ export default function Page() {
           const peer = new (await import("peerjs")).default();
           peer.on("open", () => {
             const audioTrack = createEmptyAudioTrack();
-            // const videoTrack = createEmptyVideoTrack({ width: 0, height: 0 });
             const videoTrack = createEmptyVideoTrack();
             const mediaStream = new MediaStream([audioTrack, videoTrack]);
             console.log(remoteID);
@@ -206,14 +193,6 @@ export default function Page() {
                     }
                     color={videoPlay ? "success" : "danger"}
                     variant={videoPlay ? "solid" : "outlined"}
-                    // endDecorator={videoPlay ? "Play" : "Pause"}
-                    // slotProps={{
-                    //   endDecorator: {
-                    //     sx: {
-                    //       minWidth: 24,
-                    //     },
-                    //   },
-                    // }}
                     slotProps={{
                       track: {
                         children: (
